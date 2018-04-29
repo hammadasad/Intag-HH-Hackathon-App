@@ -1,4 +1,4 @@
-<!--h1 class="title has-text-centered"></h1-->
+<h1 class="title has-text-centered">Enter Prescription ID or Click QR Code to Scan</h1>
 <div class="box" style="margin:0 auto;height:300px;width:70%">
     <div class="box" style="width:50%;float:left">
         <!-- insert caption , utilizing forms module-->
@@ -12,7 +12,29 @@
 
         <a class="button is-success">Search</a>
     </div>
-    <div class="box" style="float:right">
-        <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/138360-200.png" style="display:block;margin-left: auto;margin-right: auto;"/>
+    <div id="videoDiv" class="box" style="float:right">
+        <img id="qrImage" src="https://d30y9cdsu7xlg0.cloudfront.net/png/138360-200.png" style="display:block;margin-left: auto;margin-right: auto;"/> 
     </div>
 </div>
+
+<script>
+    // QR Code Scanning  
+    $("#qrImage").on('click', function() {
+        $("#qrImage").remove();
+        $("#videoDiv").append("<video id='preview'></video>");
+        let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+        scanner.addListener('scan', function (content) {
+          console.log(content);
+          // Make request to server
+        });
+        Instascan.Camera.getCameras().then(function (cameras) {
+          if (cameras.length > 0) {
+            scanner.start(cameras[0]);
+          } else {
+            console.error('No cameras found.');
+          }
+        }).catch(function (e) {
+          console.error(e);
+        });
+    });
+</script>
