@@ -19,6 +19,7 @@
 
 <script>
     // QR Code Scanning  
+    //new QRCode(document.getElementById("videoDiv"), "this is a test QR Code");
     $("#qrImage").on('click', function() {
         $("#qrImage").remove();
         $("#videoDiv").append("<video id='preview'></video>");
@@ -26,6 +27,18 @@
         scanner.addListener('scan', function (content) {
           console.log(content);
           // Make request to server
+          $.getJSON(
+              // QR Code value designed specific to application...maybe pad with arbitrary data??
+              location.href + content,
+              // Response Obj
+              function(data) {
+                if(data["status"] === "fail") {
+                    console.log("ID doesn't exist");
+                } else {
+                    location.replace(location.href + "prescriptions/view/" + data["value"]);
+                }
+              }
+          );
         });
         Instascan.Camera.getCameras().then(function (cameras) {
           if (cameras.length > 0) {

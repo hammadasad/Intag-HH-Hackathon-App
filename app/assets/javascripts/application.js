@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require instascan.min.js
+//= require qrcode.js
 //= require_tree .

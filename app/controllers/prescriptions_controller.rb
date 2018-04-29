@@ -19,4 +19,8 @@ class PrescriptionsController < ApplicationController
         @prescription = Prescription.where(id: params[:id]).first
         render "collection", :locals => { :prescription => @prescription }
     end
+
+    def qrcodevalidation
+        # Parse QR Code and check if entry exists in database
+    end
 end
