@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   resources :sessions
   delete '/sessions', to: 'sessions#destroy'
   resources :users
+  resources :prescriptions
+  get '/prescriptions/view/:id', to: 'prescriptions#display'
 end

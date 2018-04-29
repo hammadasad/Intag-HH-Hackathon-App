@@ -1,0 +1,10 @@
+<h1 class="title has-text-centered"> Prescrption ID:<%= @prescription.id %></h1>
+<div class="box" style="margin:0 auto;height:500px;width:70%">
+    <!--div class="box" style="width:50%;float:left"-->
+        <% @prescription.attributes.each do |attr_name, attr_value| %>
+            <div>
+            <%= attr_name %>: <%= attr_value %>
+            </div>
+        <% end %>
+    <!--/div-->
+</div>

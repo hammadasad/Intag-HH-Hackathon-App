@@ -5,12 +5,12 @@
         <div class="field">
 
         </div>
-        <input type="text" class="input" placeholder="Enter ID"/>
+        <input id="theInput" type="text" class="input" placeholder="Enter ID"/>
         <div class="field">
 
         </div>
 
-        <a class="button is-success">Search</a>
+        <a id="searchSubmit" class="button is-success">Search</a>
     </div>
     <div id="videoDiv" class="box" style="float:right">
         <img id="qrImage" src="https://d30y9cdsu7xlg0.cloudfront.net/png/138360-200.png" style="display:block;margin-left: auto;margin-right: auto;"/> 
@@ -37,4 +37,30 @@
           console.error(e);
         });
     });
+
+    $("#searchSubmit").on('click', function() {
+        // Retrive input, trim first and convert into a number
+        initialValue = $("#theInput").val();
+        let inputValue = Number(initialValue);
+        console.log("Value of input was " + inputValue);
+
+        // Check if the number is actually a number...
+        if(!isNaN(inputValue)) {
+            console.log("In here");
+            // Fetch from the server
+            $.getJSON(
+                
+                "/prescriptions/" + inputValue,
+                function(data) {
+                    console.log(data);
+                    if(data["status"] === "fail") {
+                        console.log("ID doesn't exist");
+                    } else {
+                        location.replace(location.href + "prescriptions/view/" + inputValue);
+                    }
+                }
+            );
+        }
+    });
+
 </script>
